@@ -3,6 +3,8 @@
 // Submodules // 
 #include "Controllino.h"
 
+// local libraries //
+#include "command_list.h"
 
 #define SerialCom Serial
 #define SerialMon Serial
@@ -79,159 +81,159 @@ void setupIO(void){
 void setIO(char c){
 
   // DIGITAL OUTPUTS //
-   if(c == '+'){
+  if(c == cmd_d0_on){
     digitalWrite(CONTROLLINO_D0, HIGH);
   }
-  if(c == '*'){
+  if(c == cmd_d0_off){
     digitalWrite(CONTROLLINO_D0, LOW);
   }
-  // r1
-  if(c == '1'){
+  // d1
+  if(c == cmd_d1_on){
     digitalWrite(CONTROLLINO_D1, HIGH);
   }
-  if(c == '!'){
+  if(c == cmd_d1_off){
     digitalWrite(CONTROLLINO_D1, LOW);
   }
-  // r2
-  if(c == '2'){
+  // d2
+  if(c == cmd_d2_on){
     digitalWrite(CONTROLLINO_D2, HIGH);
   }
-  if(c == '"'){
+  if(c == cmd_d2_off){
     digitalWrite(CONTROLLINO_D2, LOW);
   }
-  // r3
-  if(c == '3'){
+  // d3
+  if(c == cmd_d3_on){
     digitalWrite(CONTROLLINO_D3, HIGH);
   }
-  if(c == '·'){
+  if(c == cmd_d3_off){
     digitalWrite(CONTROLLINO_D3, LOW);
   }
-  // r4
-  if(c == '4'){
+  // d4
+  if(c == cmd_d4_on){
     digitalWrite(CONTROLLINO_D4, HIGH);
   }
-  if(c == '$'){
+  if(c == cmd_d4_off){
     digitalWrite(CONTROLLINO_D4, LOW);
   }
-  // r5
-  if(c == '5'){
+  // d5
+  if(c == cmd_d5_on){
     digitalWrite(CONTROLLINO_D5, HIGH);
   }
-  if(c == '%'){
+  if(c == cmd_d5_off){
     digitalWrite(CONTROLLINO_D5, LOW);
   }
-  // r6
-  if(c == '6'){
+  // d6
+  if(c == cmd_d6_on){
     digitalWrite(CONTROLLINO_D6, HIGH);
   }
-  if(c == '&'){
+  if(c == cmd_d6_off){
     digitalWrite(CONTROLLINO_D6, LOW);
   }
-  // r7
-  if(c == '7'){
+  // d7
+  if(c == cmd_d7_on){
     digitalWrite(CONTROLLINO_D7, HIGH);
   }
-  if(c == '/'){
+  if(c == cmd_d7_off){
     digitalWrite(CONTROLLINO_D7, LOW);
   }
-  // r8
-  if(c == '8'){
+  // d8
+  if(c == cmd_d8_on){
     digitalWrite(CONTROLLINO_D8, HIGH);
   }
-  if(c == '('){
+  if(c == cmd_d8_off){
     digitalWrite(CONTROLLINO_D8, LOW);
   }
-  // r9
-  if(c == '9'){
+  // d9
+  if(c == cmd_d9_on){
     digitalWrite(CONTROLLINO_D9, HIGH);
   }
-  if(c == ')'){
+  if(c == cmd_d9_off){
     digitalWrite(CONTROLLINO_D9, LOW);
   }
-  // r8
-  if(c == '0'){
+  // d10
+  if(c == cmd_d10_on){
     digitalWrite(CONTROLLINO_D10, HIGH);
   }
-  if(c == '='){
+  if(c == cmd_d10_off){
     digitalWrite(CONTROLLINO_D10, LOW);
   }
-  // r9
-  if(c == 0x27){                                  
+  // d11
+  if(c == cmd_d11_on){                                  
     digitalWrite(CONTROLLINO_D11, HIGH);
   }
-  if(c == '?'){
+  if(c == cmd_d11_off){
     digitalWrite(CONTROLLINO_D11, LOW);
   }
 
   // RELAYS // 
   // r0
-  if(c == 'q'){
+  if(c == cmd_r0_on){
     digitalWrite(CONTROLLINO_R0, HIGH);
   }
-  if(c == 'Q'){
+  if(c == cmd_r0_off){
     digitalWrite(CONTROLLINO_R0, LOW);
   }
   // r1
-  if(c == 'w'){
+  if(c == cmd_r1_on){
     digitalWrite(CONTROLLINO_R1, HIGH);
   }
-  if(c == 'W'){
+  if(c == cmd_r1_off){
     digitalWrite(CONTROLLINO_R1, LOW);
   }
   // r2
-  if(c == 'e'){
+  if(c == cmd_r2_on){
     digitalWrite(CONTROLLINO_R2, HIGH);
   }
-  if(c == 'E'){
+  if(c == cmd_r2_off){
     digitalWrite(CONTROLLINO_R2, LOW);
   }
   // r3
-  if(c == 'r'){
+  if(c == cmd_r3_on){
     digitalWrite(CONTROLLINO_R3, HIGH);
   }
-  if(c == 'R'){
+  if(c == cmd_r3_off){
     digitalWrite(CONTROLLINO_R3, LOW);
   }
   // r4
-  if(c == 't'){
+  if(c == cmd_r4_on){
     digitalWrite(CONTROLLINO_R4, HIGH);
   }
-  if(c == 'T'){
+  if(c == cmd_r4_off){
     digitalWrite(CONTROLLINO_R4, LOW);
   }
   // r5
-  if(c == 'y'){
+  if(c == cmd_r5_on){
     digitalWrite(CONTROLLINO_R5, HIGH);
   }
-  if(c == 'Y'){
+  if(c == cmd_r5_off){
     digitalWrite(CONTROLLINO_R5, LOW);
   }
   // r6
-  if(c == 'u'){
+  if(c == cmd_r6_on){
     digitalWrite(CONTROLLINO_R6, HIGH);
   }
-  if(c == 'U'){
+  if(c == cmd_r6_off){
     digitalWrite(CONTROLLINO_R6, LOW);
   }
   // r7
-  if(c == 'i'){
+  if(c == cmd_r7_on){
     digitalWrite(CONTROLLINO_R7, HIGH);
   }
-  if(c == 'I'){
+  if(c == cmd_r7_off){
     digitalWrite(CONTROLLINO_R7, LOW);
   }
   // r8
-  if(c == 'o'){
+  if(c == cmd_r8_on){
     digitalWrite(CONTROLLINO_R8, HIGH);
   }
-  if(c == 'O'){
+  if(c == cmd_r8_off){
     digitalWrite(CONTROLLINO_R8, LOW);
   }
   // r9
-  if(c == 'p'){
+  if(c == cmd_r9_on){
     digitalWrite(CONTROLLINO_R9, HIGH);
   }
-  if(c == 'P'){
+  if(c == cmd_r9_off){
     digitalWrite(CONTROLLINO_R9, LOW);
   }
 
