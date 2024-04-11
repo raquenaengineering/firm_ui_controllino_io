@@ -290,69 +290,9 @@ void sendAnalogVals(void){
     SerialMon.print(i);
     SerialMon.print(" analogVal reconverted = ");
     SerialMon.println(reconverted);
-    
-
   } 
 
   SerialCom.println();                // end of line to determine end of analog data. 
-
-  // uint16_t a0 = analogRead(CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_00);
-  // uint8_t a0_msb = a0 >> 8;
-  // uint8_t a0_lsb = a0 % 256;
-
-  // uint16_t a1 = analogRead(CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_01);
-  // uint8_t a1_msb = a1 >> 8;
-  // uint8_t a1_lsb = a1 % 256;
-
-  // uint16_t a2 = analogRead(CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_02);
-  // uint8_t a2_msb = a2 >> 8;
-  // uint8_t a2_lsb = a2 % 256;
-
-  // uint16_t a3 = analogRead(CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_03);
-  // uint8_t a3_msb = a3 >> 8;
-  // uint8_t a3_lsb = a3 % 256;
-
-  // channels 0-3 //
-  // SerialCom.write(a0_msb);
-  // SerialCom.write(a0_lsb);
-
-  // SerialCom.write(a1_msb);
-  // SerialCom.write(a1_lsb);
-
-  // SerialCom.write(a2_msb);
-  // SerialCom.write(a2_lsb);
-
-  // SerialCom.write(a3_msb);
-  // SerialCom.write(a3_lsb);
-
-  // // channels 4-7 //
-  // SerialCom.write(a0_msb);
-  // SerialCom.write(a0_lsb);
-
-  // SerialCom.write(a1_msb);
-  // SerialCom.write(a1_lsb);
-
-  // SerialCom.write(a2_msb);
-  // SerialCom.write(a2_lsb);
-
-  // SerialCom.write(a3_msb);
-  // SerialCom.write(a3_lsb);
-
-  // // channels 7-11 //
-  // SerialCom.write(a0_msb);
-  // SerialCom.write(a0_lsb);
-
-  // SerialCom.write(a1_msb);
-  // SerialCom.write(a1_lsb);
-
-  // SerialCom.write(a3_msb);
-  // SerialCom.write(a2_lsb);
-
-  // SerialCom.write(a3_msb);
-  // SerialCom.write(a3_lsb);
-
-
-
 }
 
 void sendAnalogVal(void){

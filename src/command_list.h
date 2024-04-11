@@ -12,7 +12,7 @@ const char cmd_pin_d2_on = '2';
 const char cmd_pin_d2_off = '"';
 
 const char cmd_pin_d3_on = '3';
-const char cmd_pin_d3_off = '·';
+const char cmd_pin_d3_off = '#';
 
 
 const char cmd_pin_d4_on = '4';
@@ -37,8 +37,8 @@ const char cmd_pin_d9_off = ')';
 const char cmd_pin_d10_on = '0';
 const char cmd_pin_d10_off = '=';
 
-const char cmd_pin_d11_on = '?';
-const char cmd_pin_d11_off = 0x27;
+const char cmd_pin_d11_on = 0x27;
+const char cmd_pin_d11_off = '?';
 
 // RELAYS // 
 
