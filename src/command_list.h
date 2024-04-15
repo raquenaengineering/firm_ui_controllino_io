@@ -1,4 +1,10 @@
+#ifndef __COMMAND_LIST_H__ // multiple declaration guards
+#define __COMMAND_LIST_H__
 
+
+// SOFT RESET //
+
+const char cmd_software_reset = 'x';
 
 // DIGITAL OUTPUTS // 
 
@@ -79,3 +85,5 @@ const char cmd_pin_r9_off = 'P';
 
 // const char cmd_request_inputs = '-';
 const char cmd_request_analog_inputs = '-';
+
+#endif

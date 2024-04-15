@@ -1,13 +1,36 @@
+// low level //
+#include <avr/wdt.h>
+// arduino library //
 #include <Arduino.h>
+
+// standard includes of Arduino //
+#include <SPI.h>
+
 
 // Submodules // 
 #include "Controllino.h"
+#include "Ethernet.h"
+
+
 
 // local libraries //
 #include "command_list.h"
 
+// #include "controllino_io_module.h"
+
+// controllino_io_module con = controllino_io_module();
+
 #define SerialCom Serial2
 #define SerialMon Serial
+
+
+// ethernet related //
+
+
+ 
+// Server which will attend the requests of remotes //
+EthernetServer server(8881);
+
 
 const uint8_t analogPins[10] = {
   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_00,
@@ -31,6 +54,11 @@ void sendAnalogVal(void);
 
 void sendAnalogVals(void);
 
+void softwareReset() {
+  wdt_enable(WDTO_15MS);        // Enable watchdog timer with a timeout of 15ms (shortest)
+  while (1) {}                  // Wait for the watchdog timer to trigger a reset
+}
+
 
 void setup() {
  
@@ -49,6 +77,9 @@ void loop() {
     char c = SerialCom.read();
     if(c == cmd_request_analog_inputs){
       sendAnalogVals();
+    }
+    if(c == cmd_software_reset){
+      softwareReset();
     }
     //SerialMon.println(c);
     setIO(c);
@@ -280,22 +311,26 @@ void sendAnalogVals(void){
     SerialCom.write(aVal_msb);
     SerialCom.write(aVal_lsb);
 
-    SerialMon.print(i);
-    SerialMon.print(" analogVal = ");
-    SerialMon.println(analogVal);
+    // FIND AN EASY WAY TO ENABLE/DISABLE THE DEBUG MESSAGES //
+    // SerialMon.print(i);
+    // SerialMon.print(" analogVal = ");
+    // SerialMon.println(analogVal);
 
-    SerialMon.println(aVal_msb);
-    SerialMon.println(aVal_lsb);
+    // SerialMon.println(aVal_msb);
+    // SerialMon.println(aVal_lsb);
 
-    SerialMon.print(i);
-    SerialMon.print(" analogVal reconverted = ");
-    SerialMon.println(reconverted);
+    // SerialMon.print(i);
+    // SerialMon.print(" analogVal reconverted = ");
+    // SerialMon.println(reconverted);
   } 
 
-  SerialCom.println();                // end of line to determine end of analog data. 
+  // SerialCom.println();                // end of line to determine end of analog data. 
+  SerialCom.write('\r');
+  SerialCom.write('\n');                // end of line to determine end of analog data. 
+
 }
 
 void sendAnalogVal(void){
 
 }
-
+ 
