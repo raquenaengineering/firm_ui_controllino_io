@@ -1,9 +1,25 @@
 #include "controllinoIOModule.h"
 
 // Constructor
+
+// ControllinoIOModule::ControllinoIOModule(HardwareSerial& serial) {
+//     communicationInterface* = &serial;
+//     // clientPtr = nullptr;
+// }
+
+// // Constructor that accepts a socket
+// ControllinoIOModule::ControllinoIOModule(WiFiClient& client) {
+//     clientPtr = &client;
+//     serialPtr = nullptr;
+// }
+
 ControllinoIOModule::ControllinoIOModule(HardwareSerial& serial) : communicationInterface(serial) {
     // Initialize any necessary variables or settings
 }
+
+// ControllinoIOModule::ControllinoIOModule(Client& client) : communicationInterface(client) {
+//     // Initialize any necessary variables or settings
+// }
 
 void ControllinoIOModule::setup(void) {
     communicationInterface.begin(115200);

@@ -1,12 +1,18 @@
 #ifndef CONTROLLINO_IO_MODULE_H
 #define CONTROLLINO_IO_MODULE_H
 
+// low level //
 #include <avr/wdt.h>
-
+// arduino standards //
 #include <Arduino.h> // If using Arduino IDE
+// controllino specifics, as submodule //
 #include "Controllino.h"
+// serial //
 #include <HardwareSerial.h>
+// socket //
+#include <Ethernet.h>
 
+// project specific imports //
 #include "command_list.h"
 
 
@@ -19,6 +25,7 @@
 class ControllinoIOModule {
 private:
     HardwareSerial& communicationInterface;
+    
 
     const uint8_t analogPins[N_ANALOG_PINS] = {
   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_00,

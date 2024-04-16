@@ -13,12 +13,16 @@
 
 // local libraries //
 #include "command_list.h"
+#include "ethernet_config.h"
 #include "controllinoIOModule.h"
 
 
-
+// serial ports //
 #define SerialCom Serial2
 #define SerialMon Serial
+
+// ethernet stuff //
+EthernetServer serverIO(CONTROLLINO_IO_PORT);
 
 
 ControllinoIOModule con = ControllinoIOModule(SerialCom);
@@ -26,10 +30,19 @@ ControllinoIOModule con = ControllinoIOModule(SerialCom);
 
 
 void setup() {
- 
-  con.setup();
+
   SerialMon.begin(115200);                          // serial monitor for debugging 
+ 
+ 
+  Ethernet.begin(mac,local_ip);
+  serverIO.begin();
+  Serial.println(Ethernet.localIP());
+
+  con.setup();
+
   SerialMon.println("Setup finished");
+
+
 
   
 }
