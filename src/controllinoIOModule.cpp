@@ -50,7 +50,6 @@ void ControllinoIOModule::setupIO(void) {
 
 }
 
-
 void ControllinoIOModule::setIO(char c) {
   // DIGITAL OUTPUTS //
   if(c == cmd_pin_d0_on){
@@ -214,20 +213,13 @@ void ControllinoIOModule::setIO(char c) {
 
 void ControllinoIOModule::sendAnalogVals(void) {
 
-//   // right now this function is only a mockup!!!
-//   // need to implement the read of ALL CHANNELS
-//   // need to implement SPLIT OF HIGH AND LOW BYTES
-//   // need to WRITE ALL VALUES TO SERIALCOM
-
-  uint16_t analogVals[10];
-
-  for(uint8_t i = 0; i < 10; i++){
+  for(uint8_t i = 0; i < N_ANALOG_PINS; i++){
     uint16_t analogVal = analogRead(analogPins[i]);
 
     uint8_t aVal_msb = analogVal >> 8;
     uint8_t aVal_lsb = analogVal % 256;
 
-    uint16_t reconverted = (aVal_msb << 8) + aVal_lsb;
+    // uint16_t reconverted = (aVal_msb << 8) + aVal_lsb;       // for debugging
 
     communicationInterface.write(aVal_msb);
     communicationInterface.write(aVal_lsb);
@@ -250,12 +242,58 @@ void ControllinoIOModule::sendAnalogVals(void) {
   communicationInterface.write('\n');                // end of line to determine end of analog data. 
 }
 
+void ControllinoIOModule::sendDigitalVals(void) {
+
+//   // right now this function is only a mockup!!!
+//   // need to implement the read of ALL CHANNELS
+//   // need to implement SPLIT OF HIGH AND LOW BYTES
+//   // need to WRITE ALL VALUES TO SERIALCOM
+
+    // ONLY FOR DEBUGGING !!! IF UNUSED DELETE !!!
+    // Serial.println("Controllino D1");
+    // Serial.println(digitalRead(CONTROLLINO_D1));
+    // Serial.println("----");
+
+    // Serial.println("Controllino D7");
+    // Serial.println(digitalRead(CONTROLLINO_D7));
+    // Serial.println("----");
+
+
+  for(uint8_t i = 0; i < N_DIGITAL_PINS; i++){
+    bool digitalVal = digitalRead(digitalPins[i]);      // reading current state of the output, may not work !
+    Serial.println(digitalVal);
+
+    communicationInterface.write(digitalVal);
+
+  }
+
+  // SerialCom.println();                               // end of line to determine end of analog data. 
+  communicationInterface.write('\r');
+  communicationInterface.write('\n');                   // end of line to determine end of analog data. 
+}
+
+void ControllinoIOModule::sendRelayVals(void) {
+
+
+  for(uint8_t i = 0; i < N_DIGITAL_PINS; i++){
+    bool relayVal = digitalRead(relayPins[i]);      // reading current state of the output, may not work !
+    Serial.println(relayVal);
+
+    communicationInterface.write(relayVal);
+
+  }
+
+  // SerialCom.println();                               // end of line to determine end of analog data. 
+  communicationInterface.write('\r');
+  communicationInterface.write('\n');                   // end of line to determine end of analog data. 
+}
+
+
 void ControllinoIOModule::softwareReset(void) {
     Serial.println("resetting");
     wdt_enable(WDTO_15MS);
     while(true);
 }
-
 
 
 // Method to perform periodic tasks
@@ -273,7 +311,11 @@ void ControllinoIOModule::run() {
             softwareReset();
             }
             //SerialMon.println(c);
+            if(c == cmd_request_digital_outputs){
+                sendDigitalVals();
+            }
             setIO(c);
+
         }
     }
 

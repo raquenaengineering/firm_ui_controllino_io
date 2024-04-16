@@ -85,5 +85,6 @@ const char cmd_pin_r9_off = 'P';
 
 // const char cmd_request_inputs = '-';
 const char cmd_request_analog_inputs = '-';
+const char cmd_request_digital_outputs = '_';
 
 #endif
