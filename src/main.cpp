@@ -30,30 +30,23 @@ ControllinoIOModule con = ControllinoIOModule(SerialCom);
 // ethernet related //
 
 
- 
-// Server which will attend the requests of remotes //
-EthernetServer server(8881);
-
-
-const uint8_t analogPins[10] = {
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_00,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_01,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_02,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_03,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_04,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_05,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_06,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_07,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_08,
-  CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_09
-};
+// const uint8_t analogPins[10] = {
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_00,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_01,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_02,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_03,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_04,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_05,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_06,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_07,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_08,
+//   CONTROLLINO_PIN_HEADER_ANALOG_ADC_IN_09
+// };
 
 // put function declarations here:
 void setupIO(void);
 
 void setIO(char c);
-
-void sendAnalogVal(void);
 
 void sendAnalogVals(void);
 
@@ -65,7 +58,8 @@ void softwareReset() {
 
 void setup() {
  
-  setupIO();
+  // setupIO();
+  con.setup();
   SerialCom.begin(115200);                          // for the actual device communication
   SerialMon.begin(115200);                          // serial monitor for debugging 
   SerialMon.println("Setup finished");
@@ -76,61 +70,63 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  while(SerialCom.available()){
-    char c = SerialCom.read();
-    if(c == cmd_request_analog_inputs){
-      sendAnalogVals();
-    }
-    if(c == cmd_software_reset){
-      softwareReset();
-    }
-    //SerialMon.println(c);
-    setIO(c);
-  }
+  con.loop();
+
+  // while(SerialCom.available()){
+  //   char c = SerialCom.read();
+  //   if(c == cmd_request_analog_inputs){
+  //     sendAnalogVals();
+  //   }
+  //   if(c == cmd_software_reset){
+  //     softwareReset();
+  //   }
+  //   //SerialMon.println(c);
+  //   setIO(c);
+  // }
 
 
 }
 
 // put function definitions here:
-void setupIO(void){
+// void setupIO(void){
 
-  // relays //
-  pinMode(CONTROLLINO_R0, OUTPUT);
-  pinMode(CONTROLLINO_R1, OUTPUT);
-  pinMode(CONTROLLINO_R2, OUTPUT);
-  pinMode(CONTROLLINO_R3, OUTPUT);
+//   // relays //
+//   pinMode(CONTROLLINO_R0, OUTPUT);
+//   pinMode(CONTROLLINO_R1, OUTPUT);
+//   pinMode(CONTROLLINO_R2, OUTPUT);
+//   pinMode(CONTROLLINO_R3, OUTPUT);
 
-  pinMode(CONTROLLINO_R4, OUTPUT);
-  pinMode(CONTROLLINO_R5, OUTPUT);
-  pinMode(CONTROLLINO_R6, OUTPUT);
-  pinMode(CONTROLLINO_R7, OUTPUT);
+//   pinMode(CONTROLLINO_R4, OUTPUT);
+//   pinMode(CONTROLLINO_R5, OUTPUT);
+//   pinMode(CONTROLLINO_R6, OUTPUT);
+//   pinMode(CONTROLLINO_R7, OUTPUT);
 
-  pinMode(CONTROLLINO_R8, OUTPUT);
-  pinMode(CONTROLLINO_R9, OUTPUT);
+//   pinMode(CONTROLLINO_R8, OUTPUT);
+//   pinMode(CONTROLLINO_R9, OUTPUT);
 
-  // digital pins // 
+//   // digital pins // 
 
-  pinMode(CONTROLLINO_D0, OUTPUT);
-  pinMode(CONTROLLINO_D1, OUTPUT);
-  pinMode(CONTROLLINO_D2, OUTPUT);
-  pinMode(CONTROLLINO_D3, OUTPUT);
+//   pinMode(CONTROLLINO_D0, OUTPUT);
+//   pinMode(CONTROLLINO_D1, OUTPUT);
+//   pinMode(CONTROLLINO_D2, OUTPUT);
+//   pinMode(CONTROLLINO_D3, OUTPUT);
 
-  pinMode(CONTROLLINO_D4, OUTPUT);
-  pinMode(CONTROLLINO_D5, OUTPUT);
-  pinMode(CONTROLLINO_D6, OUTPUT);
-  pinMode(CONTROLLINO_D7, OUTPUT);
+//   pinMode(CONTROLLINO_D4, OUTPUT);
+//   pinMode(CONTROLLINO_D5, OUTPUT);
+//   pinMode(CONTROLLINO_D6, OUTPUT);
+//   pinMode(CONTROLLINO_D7, OUTPUT);
 
-  pinMode(CONTROLLINO_D8, OUTPUT);
-  pinMode(CONTROLLINO_D9, OUTPUT);
-  pinMode(CONTROLLINO_D10, OUTPUT);
-  pinMode(CONTROLLINO_D11, OUTPUT);
+//   pinMode(CONTROLLINO_D8, OUTPUT);
+//   pinMode(CONTROLLINO_D9, OUTPUT);
+//   pinMode(CONTROLLINO_D10, OUTPUT);
+//   pinMode(CONTROLLINO_D11, OUTPUT);
 
-  // analog pins / only input // 
+//   // analog pins / only input // 
 
-  pinMode(CONTROLLINO_IN0, INPUT);
-  pinMode(CONTROLLINO_IN1, INPUT);
+//   pinMode(CONTROLLINO_IN0, INPUT);
+//   pinMode(CONTROLLINO_IN1, INPUT);
 
-}
+// }
 
 
 void setIO(char c){
@@ -294,41 +290,41 @@ void setIO(char c){
 
 }
 
-void sendAnalogVals(void){
+// void sendAnalogVals(void){
 
-  // right now this function is only a mockup!!!
-  // need to implement the read of ALL CHANNELS
-  // need to implement SPLIT OF HIGH AND LOW BYTES
-  // need to WRITE ALL VALUES TO SERIALCOM
+//   // right now this function is only a mockup!!!
+//   // need to implement the read of ALL CHANNELS
+//   // need to implement SPLIT OF HIGH AND LOW BYTES
+//   // need to WRITE ALL VALUES TO SERIALCOM
 
-  uint16_t analogVals[10];
+//   uint16_t analogVals[10];
 
-  for(uint8_t i = 0; i < 10; i++){
-    uint16_t analogVal = analogRead(analogPins[i]);
+//   for(uint8_t i = 0; i < 10; i++){
+//     uint16_t analogVal = analogRead(analogPins[i]);
 
-    uint8_t aVal_msb = analogVal >> 8;
-    uint8_t aVal_lsb = analogVal % 256;
+//     uint8_t aVal_msb = analogVal >> 8;
+//     uint8_t aVal_lsb = analogVal % 256;
 
-    uint16_t reconverted = (aVal_msb << 8) + aVal_lsb;
+//     uint16_t reconverted = (aVal_msb << 8) + aVal_lsb;
 
-    SerialCom.write(aVal_msb);
-    SerialCom.write(aVal_lsb);
+//     SerialCom.write(aVal_msb);
+//     SerialCom.write(aVal_lsb);
 
-    // FIND AN EASY WAY TO ENABLE/DISABLE THE DEBUG MESSAGES //
-    // SerialMon.print(i);
-    // SerialMon.print(" analogVal = ");
-    // SerialMon.println(analogVal);
+//     // FIND AN EASY WAY TO ENABLE/DISABLE THE DEBUG MESSAGES //
+//     // SerialMon.print(i);
+//     // SerialMon.print(" analogVal = ");
+//     // SerialMon.println(analogVal);
 
-    // SerialMon.println(aVal_msb);
-    // SerialMon.println(aVal_lsb);
+//     // SerialMon.println(aVal_msb);
+//     // SerialMon.println(aVal_lsb);
 
-    // SerialMon.print(i);
-    // SerialMon.print(" analogVal reconverted = ");
-    // SerialMon.println(reconverted);
-  } 
+//     // SerialMon.print(i);
+//     // SerialMon.print(" analogVal reconverted = ");
+//     // SerialMon.println(reconverted);
+//   } 
 
-  // SerialCom.println();                // end of line to determine end of analog data. 
-  SerialCom.write('\r');
-  SerialCom.write('\n');                // end of line to determine end of analog data. 
+//   // SerialCom.println();                // end of line to determine end of analog data. 
+//   SerialCom.write('\r');
+//   SerialCom.write('\n');                // end of line to determine end of analog data. 
 
-}
+// }
