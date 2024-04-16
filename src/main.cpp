@@ -16,12 +16,15 @@
 // local libraries //
 #include "command_list.h"
 
-// #include "controllino_io_module.h"
+#include "controllino_io_module.h"
 
-// controllino_io_module con = controllino_io_module();
+
 
 #define SerialCom Serial2
 #define SerialMon Serial
+
+
+// ControllinoIOModule con = ControllinoIOModule(SerialCom);
 
 
 // ethernet related //
