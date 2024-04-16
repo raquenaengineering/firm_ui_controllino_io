@@ -275,7 +275,7 @@ void ControllinoIOModule::sendDigitalVals(void) {
 void ControllinoIOModule::sendRelayVals(void) {
 
 
-  for(uint8_t i = 0; i < N_DIGITAL_PINS; i++){
+  for(uint8_t i = 0; i < N_RELAYS; i++){
     bool relayVal = digitalRead(relayPins[i]);      // reading current state of the output, may not work !
     Serial.println(relayVal);
 
@@ -314,14 +314,15 @@ void ControllinoIOModule::run() {
             if(c == cmd_request_digital_outputs){
                 sendDigitalVals();
             }
+            if(c == cmd_request_relay_outputs){
+                sendRelayVals();
+            }
             setIO(c);
 
         }
     }
 
 }
-
-
 
 
 // Destructor
