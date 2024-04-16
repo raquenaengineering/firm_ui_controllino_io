@@ -6,6 +6,7 @@ ControllinoIOModule::ControllinoIOModule(HardwareSerial& serial) : communication
 }
 
 void ControllinoIOModule::setup(void) {
+    communicationInterface.begin(115200);
     setupIO();
 }
 
@@ -250,13 +251,15 @@ void ControllinoIOModule::sendAnalogVals(void) {
 }
 
 void ControllinoIOModule::softwareReset(void) {
-
+    Serial.println("resetting");
+    wdt_enable(WDTO_15MS);
+    while(true);
 }
 
 
 
 // Method to perform periodic tasks
-void ControllinoIOModule::loop() {
+void ControllinoIOModule::run() {
     // Implement any periodic tasks or continuous operations here
     // This method will be called repeatedly in the main loop
 

@@ -4,7 +4,7 @@
 
 // SOFT RESET //
 
-const char cmd_software_reset = 'x';
+const char cmd_software_reset = ' ';
 
 // DIGITAL OUTPUTS // 
 

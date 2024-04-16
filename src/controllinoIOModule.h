@@ -1,6 +1,8 @@
 #ifndef CONTROLLINO_IO_MODULE_H
 #define CONTROLLINO_IO_MODULE_H
 
+#include <avr/wdt.h>
+
 #include <Arduino.h> // If using Arduino IDE
 #include "Controllino.h"
 #include <HardwareSerial.h>
@@ -31,7 +33,7 @@ public:
     ControllinoIOModule(HardwareSerial& serial);
     // Method to perform periodic tasks
     void setup();
-    void loop();
+    void run();
     void setupIO(void);
     void setIO(char c);
     void sendAnalogVals(void);
