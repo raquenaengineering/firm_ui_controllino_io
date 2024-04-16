@@ -16,7 +16,7 @@
 // local libraries //
 #include "command_list.h"
 
-#include "controllino_io_module.h"
+#include "controllinoIOModule.h"
 
 
 
@@ -24,7 +24,7 @@
 #define SerialMon Serial
 
 
-// ControllinoIOModule con = ControllinoIOModule(SerialCom);
+ControllinoIOModule con = ControllinoIOModule(SerialCom);
 
 
 // ethernet related //
@@ -332,8 +332,3 @@ void sendAnalogVals(void){
   SerialCom.write('\n');                // end of line to determine end of analog data. 
 
 }
-
-void sendAnalogVal(void){
-
-}
- 
