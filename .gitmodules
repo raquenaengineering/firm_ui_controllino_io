@@ -1,3 +1,6 @@
 [submodule "lib/CONTROLLINO_Library"]
 	path = lib/CONTROLLINO_Library
 	url = https://github.com/CONTROLLINO-PLC/CONTROLLINO_Library.git
+[submodule "lib/Ethernet"]
+	path = lib/Ethernet
+	url = https://github.com/arduino-libraries/Ethernet.git
