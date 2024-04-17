@@ -1,5 +1,5 @@
-#ifndef __COMMAND_LIST_H__ // multiple declaration guards
-#define __COMMAND_LIST_H__
+#ifndef COMMAND_LIST_H // multiple declaration guards
+#define COMMAND_LIST_H
 
 
 // SOFT RESET //
