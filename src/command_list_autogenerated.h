@@ -3,6 +3,7 @@
 
 
 
+const char cmd_all_off = '<';
 const char cmd_pin_d0_off = '*';
 const char cmd_pin_d0_on = '+';
 const char cmd_pin_d10_off = '=';

@@ -79,6 +79,7 @@ public:
     void run();
     void setupIO(void);
     void setIO(char c);
+    void allOutputsOff(void);
     void sendAnalogVals(void);
     void sendDigitalVals(void);
     void sendRelayVals(void);

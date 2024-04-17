@@ -68,6 +68,11 @@ void ControllinoIOModule::setupIO(void) {
 
 void ControllinoIOModule::setIO(char c) {
   // DIGITAL OUTPUTS //
+
+  if(c == cmd_all_off){
+    allOutputsOff();
+  }
+
   if(c == cmd_pin_d0_on){
     digitalWrite(CONTROLLINO_D0, HIGH);
   }
@@ -227,6 +232,16 @@ void ControllinoIOModule::setIO(char c) {
 
 }
 
+void ControllinoIOModule::allOutputsOff(void) {
+  for(uint8_t i = 0; i < N_DIGITAL_PINS; i++){
+    digitalWrite(digitalPins[i], LOW);
+  }
+  for(uint8_t i = 0; i < N_RELAYS; i++){
+    digitalWrite(relayPins[i], LOW);
+  }
+  
+}
+
 void ControllinoIOModule::sendAnalogVals(void) {
 
   for(uint8_t i = 0; i < N_ANALOG_PINS; i++){
@@ -303,6 +318,8 @@ void ControllinoIOModule::sendRelayVals(void) {
   communicationInterface.write('\r');
   communicationInterface.write('\n');                   // end of line to determine end of analog data. 
 }
+
+
 
 
 void ControllinoIOModule::softwareReset(void) {
