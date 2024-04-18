@@ -25,6 +25,8 @@
 class ControllinoIOModule {
 private:
     HardwareSerial& communicationInterface;
+
+    EthernetClient clientIO;                           // client used for the socket communication (device only connects to a single client)
     
 
     const uint8_t analogPins[N_ANALOG_PINS] = {
@@ -71,11 +73,16 @@ private:
 };
     bool relayVals[N_RELAYS];
 
+
 public:
     // Constructor
     ControllinoIOModule(HardwareSerial& serial);
     // Method to perform periodic tasks
     void setup();
+
+    void writec(char c);                      // writes a char, to either socket client or serial
+    char readc();                       // same as writec but to read
+
     void run();
     void setupIO(void);
     void processCommand(char c);

@@ -26,6 +26,32 @@ void ControllinoIOModule::setup(void) {
     setupIO();
 }
 
+
+void ControllinoIOModule::writec(char c) {
+  if(communicationInterface){
+    communicationInterface.write(c);
+  }
+  else if(clientIO){
+    clientIO.write(c);
+  }
+}
+
+char ControllinoIOModule::readc(void) {
+  char c = 0;
+
+  if(communicationInterface){
+    if(communicationInterface.available()){
+      c = communicationInterface.read();
+    }
+  }
+  else if(clientIO){                                  // maybe here should go serverIO, as clientIO may never exist if ther's no serverIO.
+    if(clientIO.available()){
+      c = clientIO.read();
+    }
+  }
+  return(c);
+}
+
 void ControllinoIOModule::setupIO(void) {
 
   // relays //
