@@ -78,6 +78,7 @@ public:
     void setup();
     void run();
     void setupIO(void);
+    void processCommand(char c);
     void setIO(char c);
     void allOutputsOff(void);
     void sendAnalogVals(void);

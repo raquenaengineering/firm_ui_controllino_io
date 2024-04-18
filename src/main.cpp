@@ -22,7 +22,8 @@
 #define SerialMon Serial
 
 // ethernet stuff //
-EthernetServer serverIO(CONTROLLINO_IO_PORT);
+EthernetServer serverIO(CONTROLLINO_IO_PORT);                 // for tcp communication, there MUST be a server, which can accept connections from clients.
+EthernetClient clientIO;                                    // declared as global, so it doesn't get mashed on each iteration.
 
 
 ControllinoIOModule con = ControllinoIOModule(SerialCom);
@@ -50,6 +51,23 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  con.run();
+  // EthernetClient clientIO = serverIO.available();
+  clientIO = serverIO.available();
+  
+  if(clientIO){
+    Serial.println("NEW CLIENT");
+    if(clientIO.connected()){
+      Serial.println("Client connected");
+      while(clientIO.available()){
+        char c = clientIO.read();
+        con.processCommand(c);
+        // clientIO.write(c);
+        Serial.write(c);
+      }
+    }
+  }
+
+
+  con.run();            // run is non blocking, if you put some blocking code in main it will stop working. 
 
 }

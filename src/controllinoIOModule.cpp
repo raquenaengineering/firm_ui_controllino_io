@@ -66,6 +66,25 @@ void ControllinoIOModule::setupIO(void) {
 
 }
 
+void ControllinoIOModule::processCommand(char c) {
+  if(c == cmd_request_analog_inputs){
+  sendAnalogVals();
+  }
+  if(c == cmd_software_reset){
+  softwareReset();
+  }
+  //SerialMon.println(c);
+  if(c == cmd_request_digital_outputs){
+      sendDigitalVals();
+  }
+  if(c == cmd_request_relay_outputs){
+      sendRelayVals();
+  }
+  setIO(c);
+}
+
+
+
 void ControllinoIOModule::setIO(char c) {
   // DIGITAL OUTPUTS //
 
@@ -334,26 +353,12 @@ void ControllinoIOModule::run() {
     // Implement any periodic tasks or continuous operations here
     // This method will be called repeatedly in the main loop
 
-    while(1){
+    // while(1){
         while(communicationInterface.available()){
             char c = communicationInterface.read();
-            if(c == cmd_request_analog_inputs){
-            sendAnalogVals();
-            }
-            if(c == cmd_software_reset){
-            softwareReset();
-            }
-            //SerialMon.println(c);
-            if(c == cmd_request_digital_outputs){
-                sendDigitalVals();
-            }
-            if(c == cmd_request_relay_outputs){
-                sendRelayVals();
-            }
-            setIO(c);
-
+            processCommand(c);
         }
-    }
+    // }
 
 }
 
