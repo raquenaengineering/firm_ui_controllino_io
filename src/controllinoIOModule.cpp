@@ -13,16 +13,26 @@
 //     serialPtr = nullptr;
 // }
 
-ControllinoIOModule::ControllinoIOModule(HardwareSerial& serial) : communicationInterface(serial) {
+ControllinoIOModule::ControllinoIOModule(HardwareSerial& serial) 
+    : communicationInterface(serial),                               // CONSTRUCTOR TO INITIALIZE CLASS MEMBERS WHICH CAN'T BE DECLARED WITHOUT INITIALIZATION !!!
+    serverIO(8881) {
     // Initialize any necessary variables or settings
 }
 
-// ControllinoIOModule::ControllinoIOModule(Client& client) : communicationInterface(client) {
-//     // Initialize any necessary variables or settings
-// }
-
 void ControllinoIOModule::setup(void) {
     communicationInterface.begin(115200);
+
+    byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+
+    IPAddress local_ip(192, 168, 4, 128);
+    IPAddress gateway(192, 168, 4, 1);
+    IPAddress subnet(255, 255, 0, 0);
+    IPAddress primaryDNS(8, 8, 8, 8); 
+    IPAddress secondaryDNS(8, 8, 4, 4);
+
+    Ethernet.begin(mac,local_ip);
+    serverIO.begin();
+    Serial.println(Ethernet.localIP());
     setupIO();
 }
 
@@ -300,6 +310,10 @@ void ControllinoIOModule::sendAnalogVals(void) {
     communicationInterface.write(aVal_msb);
     communicationInterface.write(aVal_lsb);
 
+    clientIO.write(cmd_request_analog_inputs);
+    clientIO.write(aVal_msb);
+    clientIO.write(aVal_lsb);
+
     // FIND AN EASY WAY TO ENABLE/DISABLE THE DEBUG MESSAGES //
     // SerialMon.print(i);
     // SerialMon.print(" analogVal = ");
@@ -316,6 +330,11 @@ void ControllinoIOModule::sendAnalogVals(void) {
   // SerialCom.println();                // end of line to determine end of analog data. 
   communicationInterface.write('\r');
   communicationInterface.write('\n');                // end of line to determine end of analog data. 
+
+    clientIO.write('\r');
+    clientIO.write('\n');
+
+
 }
 
 void ControllinoIOModule::sendDigitalVals(void) {
@@ -341,6 +360,9 @@ void ControllinoIOModule::sendDigitalVals(void) {
 
     communicationInterface.write(digitalVal);
 
+    clientIO.write(cmd_request_digital_outputs);
+    clientIO.write(digitalVal);
+
   }
 
   // SerialCom.println();                               // end of line to determine end of analog data. 
@@ -356,6 +378,10 @@ void ControllinoIOModule::sendRelayVals(void) {
     Serial.println(relayVal);
 
     communicationInterface.write(relayVal);
+
+    clientIO.write(cmd_request_relay_outputs);
+    clientIO.write(relayVal);
+
 
   }
 
@@ -385,6 +411,24 @@ void ControllinoIOModule::run() {
             processCommand(c);
         }
     // }
+
+  // EthernetClient clientIO = serverIO.available();
+  clientIO = serverIO.available();
+  
+  if(clientIO){
+    Serial.println("NEW CLIENT");
+    if(clientIO.connected()){
+      Serial.println("Client connected");
+      while(clientIO.available()){
+        char c = clientIO.read();
+        processCommand(c);
+        // clientIO.write(c);
+        Serial.write(c);
+      }
+    }
+  }
+
+
 
 }
 
