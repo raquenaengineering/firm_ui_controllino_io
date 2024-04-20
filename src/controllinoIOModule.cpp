@@ -358,8 +358,6 @@ void ControllinoIOModule::sendDigitalVals(void) {
     Serial.println(digitalVal);
 
     communicationInterface.write(digitalVal);
-
-    // clientIO.write(cmd_request_digital_outputs);
     clientIO.write(digitalVal);
 
   }
@@ -379,8 +377,6 @@ void ControllinoIOModule::sendRelayVals(void) {
     Serial.println(relayVal);
 
     communicationInterface.write(relayVal);
-
-    // clientIO.write(cmd_request_relay_outputs);
     clientIO.write(relayVal);
 
 
@@ -425,8 +421,7 @@ void ControllinoIOModule::run() {
       while(clientIO.available()){
         char c = clientIO.read();
         processCommand(c);
-        // clientIO.write(c);
-        Serial.write(c);
+        // Serial.println(c);
       }
     }
   }
