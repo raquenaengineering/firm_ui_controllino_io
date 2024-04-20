@@ -310,7 +310,7 @@ void ControllinoIOModule::sendAnalogVals(void) {
     communicationInterface.write(aVal_msb);
     communicationInterface.write(aVal_lsb);
 
-    clientIO.write(cmd_request_analog_inputs);
+    // clientIO.write(cmd_request_analog_inputs);
     clientIO.write(aVal_msb);
     clientIO.write(aVal_lsb);
 
@@ -330,9 +330,8 @@ void ControllinoIOModule::sendAnalogVals(void) {
   // SerialCom.println();                // end of line to determine end of analog data. 
   communicationInterface.write('\r');
   communicationInterface.write('\n');                // end of line to determine end of analog data. 
-
-    clientIO.write('\r');
-    clientIO.write('\n');
+  clientIO.write('\r');
+  clientIO.write('\n');
 
 
 }
@@ -360,7 +359,7 @@ void ControllinoIOModule::sendDigitalVals(void) {
 
     communicationInterface.write(digitalVal);
 
-    clientIO.write(cmd_request_digital_outputs);
+    // clientIO.write(cmd_request_digital_outputs);
     clientIO.write(digitalVal);
 
   }
@@ -368,6 +367,8 @@ void ControllinoIOModule::sendDigitalVals(void) {
   // SerialCom.println();                               // end of line to determine end of analog data. 
   communicationInterface.write('\r');
   communicationInterface.write('\n');                   // end of line to determine end of analog data. 
+  clientIO.write('\r');
+  clientIO.write('\n');                   // end of line to determine end of analog data. 
 }
 
 void ControllinoIOModule::sendRelayVals(void) {
@@ -379,7 +380,7 @@ void ControllinoIOModule::sendRelayVals(void) {
 
     communicationInterface.write(relayVal);
 
-    clientIO.write(cmd_request_relay_outputs);
+    // clientIO.write(cmd_request_relay_outputs);
     clientIO.write(relayVal);
 
 
@@ -388,6 +389,8 @@ void ControllinoIOModule::sendRelayVals(void) {
   // SerialCom.println();                               // end of line to determine end of analog data. 
   communicationInterface.write('\r');
   communicationInterface.write('\n');                   // end of line to determine end of analog data. 
+  clientIO.write('\r');
+  clientIO.write('\n');                   // end of line to determine end of analog data. 
 }
 
 
