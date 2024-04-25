@@ -355,7 +355,7 @@ void ControllinoIOModule::sendDigitalVals(void) {
 
   for(uint8_t i = 0; i < N_DIGITAL_PINS; i++){
     bool digitalVal = digitalRead(digitalPins[i]);      // reading current state of the output, may not work !
-    Serial.println(digitalVal);
+    // Serial.println(digitalVal);
 
     communicationInterface.write(digitalVal);
     clientIO.write(digitalVal);
@@ -374,7 +374,7 @@ void ControllinoIOModule::sendRelayVals(void) {
 
   for(uint8_t i = 0; i < N_RELAYS; i++){
     bool relayVal = digitalRead(relayPins[i]);      // reading current state of the output, may not work !
-    Serial.println(relayVal);
+    // Serial.println(relayVal);
 
     communicationInterface.write(relayVal);
     clientIO.write(relayVal);
@@ -415,13 +415,13 @@ void ControllinoIOModule::run() {
   clientIO = serverIO.available();
   
   if(clientIO){
-    Serial.println("NEW CLIENT");
+    // Serial.println("NEW CLIENT");
     if(clientIO.connected()){
-      Serial.println("Client connected");
+      // Serial.println("Client connected");
       while(clientIO.available()){
         char c = clientIO.read();
         processCommand(c);
-        // Serial.println(c);
+        // Serial.pr  intln(c);
       }
     }
   }
